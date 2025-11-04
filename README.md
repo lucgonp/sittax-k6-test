@@ -2,11 +2,15 @@
 
 > **Projeto de testes de performance extremamente agressivos para a API de autenticação Sittax usando k6**
 
-[![k6](https://img.shields.io/badge/k6-performance%20testing-7d64ff)](https://k6.io/)
-[![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+![k6](https://img.shields.io/badge/k6-v0.47+-7d64ff?style=flat-square&logo=k6)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow?style=flat-square&logo=javascript)
+![Platform](https://img.shields.io/badge/Platform-Windows-blue?style=flat-square&logo=windows)
+![Tests](https://img.shields.io/badge/Tests-7%20Types-green?style=flat-square)
+![VUs](https://img.shields.io/badge/Max%20VUs-10k-red?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-brightgreen?style=flat-square)
+![Repo](https://img.shields.io/badge/GitHub-lucgonp%2Fsittax--k6--test-181717?style=flat-square&logo=github)
 
-## � Índice
+## 📋 Índice
 
 - [Sobre o Projeto](#sobre-o-projeto)
 - [Funcionalidades](#funcionalidades)
@@ -47,11 +51,11 @@ Este projeto implementa uma suíte completa de testes de performance para a API 
 - Windows PowerShell ou terminal compatível
 - Acesso à API Sittax de homologação
 
-## � Instalação
+## 📦 Instalação
 
 1. Clone o repositório:
 ```bash
-git clone https://github.com/SEU_USUARIO/sittax-k6-test.git
+git clone https://github.com/lucgonp/sittax-k6-test.git
 cd sittax-k6-test
 ```
 
