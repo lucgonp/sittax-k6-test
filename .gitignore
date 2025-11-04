@@ -1,0 +1,30 @@
+# Logs e relatórios de teste
+reports/*.json
+reports/*.html
+reports/*.xml
+
+# Arquivos temporários do k6
+*.log
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos do VS Code
+.vscode/
+!.vscode/tasks.json
+
+# Node modules (se houver)
+node_modules/
+
+# Arquivos de ambiente (se houver credenciais sensíveis)
+.env
+.env.local
+
+# Arquivos de backup
+*.bak
+*.tmp
+
+# Relatórios específicos
+sittax-*-result.json
+*-results.json

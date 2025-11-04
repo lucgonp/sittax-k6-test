@@ -1,0 +1,39 @@
+{
+  "name": "sittax-k6-test",
+  "version": "1.0.0",
+  "description": "k6 Performance Testing Project",
+  "main": "index.js",
+  "scripts": {
+    "test:load": "k6 run tests/load-test.js",
+    "test:stress": "k6 run tests/stress-test.js",
+    "test:api": "k6 run tests/api-test.js",
+    "test:spike": "k6 run tests/spike-test.js",
+    "test:data": "k6 run tests/data-driven-test.js",
+    "test:sittax:simple": "k6 run tests/sittax-login-simple.js",
+    "test:sittax:complete": "k6 run tests/sittax-login-test.js",
+    "test:sittax:all": "npm run test:sittax:simple && npm run test:sittax:complete",
+    "test:all": "npm run test:load && npm run test:stress && npm run test:api && npm run test:spike",
+    "test:load:report": "k6 run tests/load-test.js --out json=reports/load-test-result.json",
+    "test:stress:report": "k6 run tests/stress-test.js --out json=reports/stress-test-result.json",
+    "test:sittax:report": "k6 run tests/sittax-login-test.js --out json=reports/sittax-login-result.json",
+    "clean:reports": "rmdir /s /q reports && mkdir reports"
+  },
+  "keywords": [
+    "k6",
+    "performance",
+    "testing",
+    "load-testing",
+    "stress-testing"
+  ],
+  "author": "Sittax",
+  "license": "MIT",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sittax/k6-test.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sittax/k6-test/issues"
+  },
+  "homepage": "https://github.com/sittax/k6-test#readme"
+}
