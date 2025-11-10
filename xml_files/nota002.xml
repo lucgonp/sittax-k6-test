@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nfeProc xmlns="http://www.portalfiscal.inf.br/nfe" versao="4.00">
+  <NFe xmlns="http://www.portalfiscal.inf.br/nfe">
+    <infNFe Id="NFe52202412345678901234567890123456789012345678902345" versao="4.00">
+      <ide>
+        <cUF>52</cUF>
+        <cNF>87654321</cNF>
+        <natOp>Prestação de serviços</natOp>
+        <mod>55</mod>
+        <serie>2</serie>
+        <nNF>789012</nNF>
+        <dhEmi>2024-11-10T11:30:00-03:00</dhEmi>
+        <tpNF>1</tpNF>
+        <idDest>1</idDest>
+        <cMunFG>5208707</cMunFG>
+        <tpImp>1</tpImp>
+        <tpEmis>1</tpEmis>
+        <cDV>7</cDV>
+        <tpAmb>2</tpAmb>
+        <finNFe>1</finNFe>
+        <indFinal>1</indFinal>
+        <indPres>1</indPres>
+      </ide>
+      <emit>
+        <CNPJ>98765432000188</CNPJ>
+        <xNome>PRESTADORA DE SERVICOS SA</xNome>
+        <enderEmit>
+          <xLgr>ALAMEDA DOS SERVICOS</xLgr>
+          <nro>789</nro>
+          <xBairro>JARDIM EMPRESARIAL</xBairro>
+          <cMun>5208707</cMun>
+          <xMun>GOIANIA</xMun>
+          <UF>GO</UF>
+          <CEP>74100000</CEP>
+        </enderEmit>
+        <IE>987654321</IE>
+        <CRT>3</CRT>
+      </emit>
+      <dest>
+        <CNPJ>11111111000111</CNPJ>
+        <xNome>TOMADOR DE SERVICOS LTDA</xNome>
+        <enderDest>
+          <xLgr>RUA DOS TOMADORES</xLgr>
+          <nro>321</nro>
+          <xBairro>CENTRO EMPRESARIAL</xBairro>
+          <cMun>5208707</cMun>
+          <xMun>GOIANIA</xMun>
+          <UF>GO</UF>
+          <CEP>74200000</CEP>
+        </enderDest>
+        <indIEDest>1</indIEDest>
+        <IE>111111111</IE>
+      </dest>
+      <det nItem="1">
+        <prod>
+          <cProd>SERV001</cProd>
+          <xProd>CONSULTORIA EMPRESARIAL</xProd>
+          <NCM>85234567</NCM>
+          <CFOP>5933</CFOP>
+          <uCom>HR</uCom>
+          <qCom>10.0000</qCom>
+          <vUnCom>150.0000</vUnCom>
+          <vProd>1500.00</vProd>
+          <uTrib>HR</uTrib>
+          <qTrib>10.0000</qTrib>
+          <vUnTrib>150.0000</vUnTrib>
+          <indTot>1</indTot>
+        </prod>
+        <imposto>
+          <ICMS>
+            <ICMS00>
+              <orig>0</orig>
+              <CST>00</CST>
+              <modBC>3</modBC>
+              <vBC>1500.00</vBC>
+              <pICMS>12.00</pICMS>
+              <vICMS>180.00</vICMS>
+            </ICMS00>
+          </ICMS>
+          <PIS>
+            <PISAliq>
+              <CST>01</CST>
+              <vBC>1500.00</vBC>
+              <pPIS>1.65</pPIS>
+              <vPIS>24.75</vPIS>
+            </PISAliq>
+          </PIS>
+          <COFINS>
+            <COFINSAliq>
+              <CST>01</CST>
+              <vBC>1500.00</vBC>
+              <pCOFINS>7.60</pCOFINS>
+              <vCOFINS>114.00</vCOFINS>
+            </COFINSAliq>
+          </COFINS>
+        </imposto>
+      </det>
+      <total>
+        <ICMSTot>
+          <vBC>1500.00</vBC>
+          <vICMS>180.00</vICMS>
+          <vICMSDeson>0.00</vICMSDeson>
+          <vFCP>0.00</vFCP>
+          <vBCST>0.00</vBCST>
+          <vST>0.00</vST>
+          <vProd>1500.00</vProd>
+          <vFrete>0.00</vFrete>
+          <vSeg>0.00</vSeg>
+          <vDesc>0.00</vDesc>
+          <vII>0.00</vII>
+          <vIPI>0.00</vIPI>
+          <vPIS>24.75</vPIS>
+          <vCOFINS>114.00</vCOFINS>
+          <vOutro>0.00</vOutro>
+          <vNF>1500.00</vNF>
+        </ICMSTot>
+      </total>
+    </infNFe>
+  </NFe>
+</nfeProc>
