@@ -1,7 +1,11 @@
 import http from 'k6/http';
 import { check, sleep } from 'k6';
 import { SharedArray } from 'k6/data';
+import { Counter } from 'k6/metrics';
 import papaparse from 'https://jslib.k6.io/papaparse/5.1.1/index.js';
+
+// Métrica personalizada para contar uploads de notas fiscais
+const notasEnviadas = new Counter('notas_fiscais_enviadas');
 
 // Função para gerar conteúdo XML de teste
 function gerarConteudoXMLTeste(nomeArquivo) {
@@ -1165,16 +1169,19 @@ console.log(`👥 ${usuarios.length} usuários disponíveis`);
 
 export const options = {
   stages: [
-    { duration: '30s', target: 5 },   // 5 usuários fazendo upload simultâneo
-    { duration: '2m', target: 5 },    // Manter por 2 minutos
-    { duration: '30s', target: 10 },  // Aumentar para 10 usuários
-    { duration: '2m', target: 10 },   // Manter por mais 2 minutos
-    { duration: '30s', target: 0 },   // Ramp down
+    { duration: '1m', target: 10 },   // Ramp up para 10 usuários
+    { duration: '3m', target: 20 },   // Subir para 20 usuários
+    { duration: '5m', target: 30 },   // 30 usuários simultâneos
+    { duration: '10m', target: 30 },  // Manter 30 usuários por 10 minutos
+    { duration: '3m', target: 10 },   // Reduzir gradualmente
+    { duration: '1m', target: 0 },    // Finalizar
   ],
+  // Para enviar 5.000 notas: 30 VUs × ~25 uploads por VU × 23 minutos ≈ 5.000+ uploads
   thresholds: {
     http_req_duration: ['p(95)<30000'],     // 95% das requests < 30s
-    http_req_failed: ['rate<0.05'],         // Taxa de erro < 5%
-    checks: ['rate>0.90'],                  // 90% dos checks devem passar
+    http_req_failed: ['rate<0.10'],         // Taxa de erro < 10% (mais permissivo para volume alto)
+    checks: ['rate>0.85'],                  // 85% dos checks devem passar
+    notas_fiscais_enviadas: ['count>=4500'], // Meta mínima de 4.500 notas enviadas
   },
 };
 
@@ -1285,6 +1292,9 @@ export default function (data) {
   if (uploadResponse.status === 200 && isValidJson) {
     // Verificar se o upload foi realmente bem-sucedido baseado na resposta da API
     if (responseData && responseData.sucesso === true) {
+      // Incrementar contador de notas enviadas com sucesso
+      notasEnviadas.add(1);
+      
       console.log(`✅ VU${__VU}: Upload ${arquivo.nome} - Status: ${uploadResponse.status}, Tempo: ${uploadResponse.timings.duration.toFixed(0)}ms, Sucesso: ${responseData.sucesso}`);
       
       check(responseData, {
@@ -1298,8 +1308,8 @@ export default function (data) {
     console.log(`❌ VU${__VU}: Falha upload ${arquivo.nome} - Status: ${uploadResponse.status}, Body: ${uploadResponse.body.substring(0, 200)}`);
   }
 
-  // Pausa entre uploads
-  sleep(Math.random() * 3 + 1); // 1-4 segundos
+  // Pausa entre uploads (reduzida para volume alto)
+  sleep(Math.random() * 1 + 0.5); // 0.5-1.5 segundos
 }
 
 function fazerLogin(usuario) {
@@ -1332,17 +1342,20 @@ function criarFormData(nomeArquivo, conteudo, boundary) {
 }
 
 export function handleSummary(data) {
+  const notasEnviadasCount = data.metrics.notas_fiscais_enviadas ? data.metrics.notas_fiscais_enviadas.values.count : 0;
+  
   return {
     'reports/sittax-upload-notas-results.json': JSON.stringify(data, null, 2),
     stdout: `
 📤 RELATÓRIO DE UPLOAD DE NOTAS FISCAIS - SITTAX ⚡
 
 📊 ESTATÍSTICAS GERAIS:
-- Total de uploads: ${data.metrics.http_reqs.values.count}
+- 📋 NOTAS FISCAIS ENVIADAS: ${notasEnviadasCount} NFes
+- Total de requisições HTTP: ${data.metrics.http_reqs.values.count}
 - Taxa de sucesso: ${((1 - data.metrics.http_req_failed.values.rate) * 100).toFixed(2)}%
 - Tempo médio: ${data.metrics.http_req_duration.values.avg.toFixed(2)}ms
 - P95: ${data.metrics.http_req_duration.values['p(95)'].toFixed(2)}ms
-- P99: ${data.metrics.http_req_duration.values['p(99)'].toFixed(2)}ms
+- P99: ${data.metrics.http_req_duration.values['p(99)'] ? data.metrics.http_req_duration.values['p(99)'].toFixed(2) : 'N/A'}ms
 
 📁 DETALHES DO TESTE:
 - Endpoint: https://apihomologacao.sittax.com.br/api/upload/importar-arquivo
