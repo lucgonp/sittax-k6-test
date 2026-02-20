@@ -14,7 +14,7 @@
   <img src="https://img.shields.io/badge/Max_VUs-10.000-E53935?style=flat-square" alt="VUs">
   <img src="https://img.shields.io/badge/Upload_Record-94.6%2Fs-FF9800?style=flat-square" alt="Upload">
   <img src="https://img.shields.io/badge/Agilizza-500_VUs-FF6600?style=flat-square" alt="Agilizza">
-  <img src="https://img.shields.io/badge/Usuários-133_reais-2196F3?style=flat-square" alt="Users">
+  <img src="https://img.shields.io/badge/Usuários-1.032_reais-2196F3?style=flat-square" alt="Users">
 </p>
 
 ---
@@ -41,14 +41,14 @@ Este projeto testa a **resiliência, performance e limites** de duas plataformas
 | Plataforma | Stack | Auth | Usuários | Resultado |
 |------------|-------|------|----------|-----------|
 | **Sittax Homologação** | API REST (JWT) | Bearer Token | 32 | Até 10k VUs |
-| **Agilizza** | Laravel (PHP 8.2) | Sessão/Cookie + CSRF | 101 | 500 VUs — 92.57% sucesso |
+| **Agilizza** | Laravel (PHP 8.2) | Sessão/Cookie + CSRF | 1.001 | 500 VUs — 90.70% sucesso |
 
 ### APIs Testadas
 
 ```
-🔐 Sittax Auth    → https://autenticacaohomologacao.sittax.com.br/api/auth/login
-📄 Sittax Upload  → https://apihomologacao.sittax.com.br/api/upload/importar-arquivo
-🚀 Agilizza       → https://agilizza.sittax.com.br/login
+🔐 Sittax Auth    → https://<SITTAX_AUTH_HOST>/api/auth/login
+📄 Sittax Upload  → https://<SITTAX_API_HOST>/api/upload/importar-arquivo
+🚀 Agilizza       → https://<AGILIZZA_HOST>/login
 ```
 
 ---
@@ -195,30 +195,42 @@ k6 run tests/auth/agilizza-breakpoint-test.js       # Breakpoint
 
 ### 📊 Resultado do Breakpoint Test — 20/02/2026
 
-Teste com subida progressiva de **50 → 100 → 200 → 300 → 500 VUs**:
+Teste com subida progressiva de **50 → 100 → 200 → 300 → 500 VUs** usando **1.001 usuários distintos**:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    BREAKPOINT TEST RESULT                    │
+│              BREAKPOINT TEST — 1.001 USUÁRIOS               │
 ├─────────────────────────┬───────────────────────────────────┤
-│ Total de requests       │ 101.186                           │
-│ Total de iterações      │ 17.706                            │
+│ Total de requests       │ 86.091                            │
+│ Total de iterações      │ 15.322                            │
 │ VUs máximos             │ 500                               │
-│ Requests/segundo        │ 186.3 req/s                       │
-│ Dados transferidos      │ 2.5 GB recebidos                  │
+│ Requests/segundo        │ 158.2 req/s                       │
+│ Dados transferidos      │ 2.0 GB recebidos                  │
 ├─────────────────────────┼───────────────────────────────────┤
-│ Taxa sucesso login      │ 92.57% (16.391 / 17.706)         │
-│ Taxa erro HTTP          │ 1.67%  (1.698 / 101.186)         │
-│ Tempo médio resposta    │ 1.25s                             │
-│ p50 (mediana)           │ 319ms                             │
-│ p90                     │ 1.33s                             │
-│ p95                     │ 2.12s                             │
+│ Taxa sucesso login      │ 90.70% (13.898 / 15.322)         │
+│ Taxa erro HTTP          │ 2.14%  (1.847 / 86.091)          │
+│ Tempo médio resposta    │ 1.49s                             │
+│ p50 (mediana)           │ 349ms                             │
+│ p90                     │ 1.17s                             │
+│ p95                     │ 1.92s                             │
 ├─────────────────────────┴───────────────────────────────────┤
 │ ✅ Servidor NÃO caiu com 500 VUs simultâneos                │
 │ ⚠️  Degradação começa a partir de ~300 VUs (timeouts)       │
 │ ✅ Infraestrutura bem dimensionada                          │
 └─────────────────────────────────────────────────────────────┘
 ```
+
+#### Comparativo: 101 vs 1.001 Usuários
+
+| Métrica | 101 usuários | 1.001 usuários |
+|---------|-------------|----------------|
+| Login success | 92.57% | 90.70% |
+| Erro HTTP | 1.67% | 2.14% |
+| p95 | 2.12s | 1.92s |
+| Requests totais | 101k | 86k |
+| Tempo/iteração | 7.73s | 8.96s |
+
+> **Nota:** Com 10× mais usuários distintos, cada iteração demora mais (mais sessões únicas no servidor), resultando em menos iterações totais no mesmo período de 9 minutos. A performance do servidor permaneceu estável.
 
 ---
 
@@ -242,21 +254,20 @@ Teste com subida progressiva de **50 → 100 → 200 → 300 → 500 VUs**:
 
 ### Dados de Usuários
 
-**Sittax** — `data/login_usuarios.csv` (32 usuários):
+> ⚠️ **Os arquivos CSV com credenciais reais estão no `.gitignore` e não são versionados.** Use os templates `.csv.example` como referência.
+
+**Sittax** — copie `data/login_usuarios.csv.example` para `data/login_usuarios.csv`:
 ```csv
 usuario,senha
-genilson@counts.com.br,sittax123
-mariana@arthacontabilidade.com.br,sittax123
+seuemail@empresa.com.br,SuaSenha
 ...
 ```
 
-**Agilizza** — `data/agilizza_usuarios.csv` (101 usuários):
+**Agilizza** — copie `data/agilizza_usuarios.csv.example` para `data/agilizza_usuarios.csv`:
 ```csv
 email,senha
-agilizza_master@agilizza.com,SuaSenha
-test.agilizza.01@sittax.com.br,Sittax123.
-test.agilizza.02@sittax.com.br,Sittax123.
-...até test.agilizza.100@sittax.com.br
+seuemail@empresa.com.br,SuaSenha
+...
 ```
 
 ### Thresholds Padrão

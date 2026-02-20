@@ -12,7 +12,11 @@ const erros = new Counter('erros_total');
 
 // Carregar usuários
 const usuarios = new SharedArray('agilizza_usuarios', function () {
-    const csvData = open('../../data/agilizza_usuarios.csv');
+    // Lê o arquivo CSV do diretório raiz do projeto
+    let csvData = open('../../data/agilizza_usuarios.csv');
+    for (let i = 101; i < 1000; i++) {
+        csvData += `test.agilizza.${i}@sittax.com.br,Sittax123.\n`;
+    }
     return papaparse.parse(csvData, { header: true }).data.filter(u => u.email && u.senha);
 });
 
