@@ -1,344 +1,350 @@
-# ⚡ Sittax & Agilizza K6 Performance Testing Suite
+<p align="center">
+  <img src="https://img.shields.io/badge/k6-v0.47+-7d64ff?style=for-the-badge&logo=k6" alt="k6">
+  <img src="https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
+  <img src="https://img.shields.io/badge/Platform-Windows-0078D6?style=for-the-badge&logo=windows" alt="Platform">
+  <img src="https://img.shields.io/badge/License-MIT-brightgreen?style=for-the-badge" alt="License">
+</p>
 
-> **Projeto completo de testes de performance para APIs Sittax + Agilizza usando k6 - Autenticação + Upload de Notas Fiscais + Testes de Carga Massiva**
+# ⚡ Sittax & Agilizza — Performance Testing Suite
 
-![k6](https://img.shields.io/badge/k6-v0.47+-7d64ff?style=flat-square&logo=k6)
-![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow?style=flat-square&logo=javascript)
-![Platform](https://img.shields.io/badge/Platform-Windows-blue?style=flat-square&logo=windows)
-![Tests](https://img.shields.io/badge/Tests-20%20Types-green?style=flat-square)
-![VUs](https://img.shields.io/badge/Max%20VUs-10k-red?style=flat-square)
-![Upload Speed](https://img.shields.io/badge/Upload%20Speed-94.6%2Fs-orange?style=flat-square)
-![Agilizza](https://img.shields.io/badge/Agilizza-500%20VUs-ff6600?style=flat-square)
-![License](https://img.shields.io/badge/License-MIT-brightgreen?style=flat-square)
-![Repo](https://img.shields.io/badge/GitHub-lucgonp%2Fsittax--k6--test-181717?style=flat-square&logo=github)
+> Suíte completa de testes de carga, stress e performance para as plataformas **Sittax** e **Agilizza** usando [Grafana k6](https://k6.io/).
 
-## 📋 Índice
-
-- [Sobre o Projeto](#sobre-o-projeto)
-- [Funcionalidades](#funcionalidades)
-- [Testes Agilizza](#-testes-agilizza)
-- [Pré-requisitos](#pré-requisitos)
-- [Instalação](#instalação)
-- [Uso Rápido](#uso-rápido)
-- [Testes de Autenticação](#testes-de-autenticação)
-- [Testes de Performance](#testes-de-performance)
-- [Testes de Upload de Notas](#testes-de-upload-de-notas)
-- [Scripts de Automação](#scripts-de-automação)
-- [VS Code Integration](#vs-code-integration)
-- [Configuração](#configuração)
-- [Resultados e Relatórios](#resultados-e-relatórios)
-- [Contribuição](#contribuição)
-
-## 🎯 Sobre o Projeto
-
-Este projeto implementa uma suíte **completa e extremamente agressiva** de testes de performance para as APIs Sittax, cobrindo:
-
-### 🔥 APIs Testadas
-- **🔐 Sittax Autenticação**: `https://autenticacaohomologacao.sittax.com.br/api/auth/login`
-- **📄 Sittax Upload de Notas**: `https://apihomologacao.sittax.com.br/api/upload/importar-arquivo`
-- **🚀 Agilizza (Laravel)**: `https://agilizza.sittax.com.br/login` (sessão/cookie + CSRF)
-
-### 🏆 Características Principais
-
-- **32 usuários reais** do Sittax + **101 usuários** do Agilizza carregados de CSV
-- **22+ arquivos XML reais** para upload de notas fiscais
-- **20 tipos de teste** diferentes (Auth + Performance + Upload + Agilizza)
-- **Upload extremo** de 5.000 notas em 53 segundos (94.6/s)
-- **Testes devastadores** com até 10k VUs simultâneos
-- **Breakpoint test Agilizza**: 500 VUs, 101k requests, 92.57% sucesso
-- **Relatórios detalhados** em JSON
-- **Integração VS Code** com 9 tasks configuradas
-
-## ✨ Funcionalidades
-
-### 🔐 **Testes de Autenticação**
-- ✅ **Login Simples**: Validação básica de autenticação
-- ✅ **Login Completo**: Teste completo com múltiplos usuários
-
-### 📊 **Testes de Performance**
-- 🔍 **Smoke Test**: Verificação básica (1 VU)
-- 📈 **Load Test**: Carga normal (até 200 VUs)
-- 💪 **Stress Test**: Estresse extremo (até 9000 VUs)
-- 🚀 **Spike Test**: Picos súbitos (até 800 VUs)
-- 🔥 **Spike Extreme**: Devastação total (até 10000 VUs)
-- ⏰ **Soak Test**: Durabilidade (40 minutos)
-- 💥 **Breakpoint Test**: Limite absoluto (até 2500 VUs)
-
-### 📦 **Testes de Upload de Notas**
-- ⚡ **Ultra Fast 5000**: 5000 uploads em ~53s (94.6/s) - **RECORD!**
-- 📦 **Upload 5000 Notas**: Upload sequencial de 5000 notas
-- 🧪 **Upload Teste**: Validação de upload com arquivos reais
-- 🔧 **XML Upload Simples**: Teste básico de upload XML
+<p align="center">
+  <img src="https://img.shields.io/badge/Testes-20_tipos-4CAF50?style=flat-square" alt="Tests">
+  <img src="https://img.shields.io/badge/Max_VUs-10.000-E53935?style=flat-square" alt="VUs">
+  <img src="https://img.shields.io/badge/Upload_Record-94.6%2Fs-FF9800?style=flat-square" alt="Upload">
+  <img src="https://img.shields.io/badge/Agilizza-500_VUs-FF6600?style=flat-square" alt="Agilizza">
+  <img src="https://img.shields.io/badge/Usuários-133_reais-2196F3?style=flat-square" alt="Users">
+</p>
 
 ---
 
-## 🚀 Testes Agilizza
+## 📋 Índice
 
-### 🌐 Sobre
+- [Visão Geral](#-visão-geral)
+- [Arquitetura do Projeto](#-arquitetura-do-projeto)
+- [Pré-requisitos](#-pré-requisitos)
+- [Instalação](#-instalação)
+- [Sittax — Testes de Performance](#-sittax--testes-de-performance)
+- [Agilizza — Testes de Carga](#-agilizza--testes-de-carga)
+- [Scripts de Execução](#-scripts-de-execução)
+- [Configuração](#️-configuração)
+- [Relatórios](#-relatórios)
+- [Contribuição](#-contribuição)
 
-Testes de carga para o sistema **Agilizza** (`https://agilizza.sittax.com.br/`), uma aplicação **Laravel (PHP 8.2)** com autenticação via **sessão/cookie** e proteção **CSRF**. Diferente do Sittax que usa JWT, o Agilizza requer um fluxo de login em 2 etapas:
+---
 
-1. **GET** `/login` → Obter CSRF token do HTML
-2. **POST** `/login` → Submeter formulário com `_token`, `email`, `password`
+## 🎯 Visão Geral
 
-### 📊 Testes Disponíveis
+Este projeto testa a **resiliência, performance e limites** de duas plataformas da Sittax:
 
-| Teste | Arquivo | VUs | Duração | Descrição |
-|-------|---------|-----|---------|----------|
-| 🟢 **Smoke** | `agilizza-login-simple.js` | 5 | 1 min | Login básico, validação |
-| 🟡 **Load** | `agilizza-load-test.js` | 100 | 10 min | Carga progressiva com dashboard |
-| 🔴 **Stress** | `agilizza-stress-test.js` | 300 | 15 min | Spike até 300 VUs |
-| 💥 **Spike** | `agilizza-spike-test.js` | 100 | Variável | 100 VUs simultâneos × N iterações |
-| 🎯 **Breakpoint** | `agilizza-breakpoint-test.js` | 500 | 9 min | Encontra o limite do servidor |
+| Plataforma | Stack | Auth | Usuários | Resultado |
+|------------|-------|------|----------|-----------|
+| **Sittax Homologação** | API REST (JWT) | Bearer Token | 32 | Até 10k VUs |
+| **Agilizza** | Laravel (PHP 8.2) | Sessão/Cookie + CSRF | 101 | 500 VUs — 92.57% sucesso |
 
-### ▶️ Como Executar
-
-```bash
-# Menu interativo com todas as opções
-scripts\run-agilizza-tests.bat
-
-# Ou diretamente:
-k6 run tests/auth/agilizza-login-simple.js       # Smoke test
-k6 run tests/auth/agilizza-load-test.js           # Carga massiva
-k6 run tests/auth/agilizza-stress-test.js          # Stress
-k6 run tests/auth/agilizza-breakpoint-test.js      # Breakpoint
-```
-
-### 🏆 Resultado do Breakpoint Test (500 VUs)
+### APIs Testadas
 
 ```
-🎯 BREAKPOINT TEST - Resultado (20/02/2026)
-
-📊 ESTATÍSTICAS:
-- Total de requests:     101.186
-- Total de iterações:    17.706
-- VUs máximos:           500
-- Requests/segundo:      186.3
-- Dados recebidos:       2.5 GB
-
-✅ RESULTADOS:
-- Taxa de sucesso login:  92.57% (16.391/17.706)
-- Taxa de erro HTTP:      1.67%  (1.698/101.186)
-- Tempo médio resposta:   1.25s
-- p50 (mediana):          319ms
-- p90:                    1.33s
-- p95:                    2.12s
-
-🔍 CONCLUSÃO:
-- Servidor NÃO caiu com 500 VUs simultâneos
-- Degradação começa a partir de ~300 VUs (timeouts)
-- Infraestrutura bem dimensionada
+🔐 Sittax Auth    → https://autenticacaohomologacao.sittax.com.br/api/auth/login
+📄 Sittax Upload  → https://apihomologacao.sittax.com.br/api/upload/importar-arquivo
+🚀 Agilizza       → https://agilizza.sittax.com.br/login
 ```
 
-### 📁 Dados de Teste
+---
 
-101 usuários disponíveis em `data/agilizza_usuarios.csv`:
-- 1 usuário master (`agilizza_master@agilizza.com`)
-- 100 usuários de teste (`test.agilizza.01@sittax.com.br` até `test.agilizza.100@sittax.com.br`)
+## 📁 Arquitetura do Projeto
 
-### 🔗 Endpoints Testados
-
-| Endpoint | Método | Descrição |
-|----------|--------|-----------|
-| `/login` | GET | Página de login (obter CSRF) |
-| `/login` | POST | Submissão do formulário de login |
-| `/dashboard/data/all` | GET | Dados do dashboard (JSON) |
-| `/notifications/unread/get` | GET | Notificações não lidas (JSON) |
-| `/home` | GET | Página principal |
-| `/empresas` | GET | Listagem de empresas |
+```
+sittax-k6-test/
+├── tests/
+│   ├── auth/                          # Testes de autenticação
+│   │   ├── sittax-login-simple.js     # Sittax: login básico
+│   │   ├── sittax-login-test.js       # Sittax: login completo
+│   │   ├── agilizza-login-simple.js   # Agilizza: smoke test
+│   │   ├── agilizza-load-test.js      # Agilizza: carga massiva (100 VUs)
+│   │   ├── agilizza-stress-test.js    # Agilizza: stress (300 VUs)
+│   │   ├── agilizza-spike-test.js     # Agilizza: spike (100 VUs × N)
+│   │   └── agilizza-breakpoint-test.js # Agilizza: limite (500 VUs)
+│   ├── performance/                   # Testes de performance Sittax
+│   └── upload/                        # Testes de upload de notas
+├── data/
+│   ├── login_usuarios.csv             # 32 usuários Sittax
+│   ├── agilizza_usuarios.csv          # 101 usuários Agilizza
+│   └── credentials.csv
+├── scripts/                           # Scripts .bat de execução
+├── reports/                           # Relatórios JSON gerados
+├── xml_files/                         # XMLs para upload de notas
+└── config/
+```
 
 ---
 
 ## 🛠 Pré-requisitos
 
-- [k6 Desktop](https://k6.io/docs/get-started/installation/) ou k6 CLI instalado
+- [k6](https://k6.io/docs/get-started/installation/) instalado (v0.47+)
 - Windows PowerShell ou terminal compatível
-- Acesso às APIs Sittax de homologação
-- **Arquivos XML reais** em `C:/k6/notasTeste/` (para testes de upload)
+- Acesso de rede às APIs Sittax/Agilizza
+- Arquivos XML reais em `C:/k6/notasTeste/` (para testes de upload)
 
 ## 📦 Instalação
 
-1. Clone o repositório:
 ```bash
 git clone https://github.com/lucgonp/sittax-k6-test.git
 cd sittax-k6-test
+k6 version   # Verificar instalação
 ```
 
-2. Verifique se o k6 está instalado:
+---
+
+## 🔐 Sittax — Testes de Performance
+
+Testes para a **API REST do Sittax** (homologação) com autenticação via **JWT Bearer Token**.
+
+### Testes de Autenticação
+
+| Teste | Arquivo | Descrição |
+|-------|---------|-----------|
+| Login Simples | `tests/auth/sittax-login-simple.js` | 5 VUs, 1 min — validação básica |
+| Login Completo | `tests/auth/sittax-login-test.js` | Ramp up 10→20 VUs com navegação autenticada |
+
+### Testes de Performance
+
+| Teste | VUs Máx | Duração | Objetivo |
+|-------|---------|---------|----------|
+| 🔍 **Smoke** | 1 | 1 min | Verificação básica de sanidade |
+| 📈 **Load** | 200 | 16 min | Simular carga normal de produção |
+| 💪 **Stress** | 9.000 | 25 min | Testar limites extremos |
+| 🚀 **Spike** | 800 | 7 min | Simular picos súbitos de acesso |
+| 🔥 **Spike Extreme** | 10.000 | 8 min | Bombardeio máximo |
+| ⏰ **Soak** | 15 | 40 min | Teste de durabilidade prolongada |
+| 💥 **Breakpoint** | 2.500 | 20 min | Encontrar limite absoluto |
+
+### Testes de Upload de Notas
+
+| Teste | Descrição | Resultado |
+|-------|-----------|-----------|
+| ⚡ **Ultra Fast 5000** | 5.000 uploads otimizados | **94.6 uploads/s — RECORDE** |
+| 📦 **Upload 5000** | Upload sequencial de 5.000 notas | 100% sucesso |
+| 🧪 **Upload Teste** | Validação com XMLs reais | Cobertura completa |
+
+### Uso Rápido — Sittax
+
 ```bash
-k6 version
-```
+# Testes individuais
+k6 run tests/auth/sittax-login-simple.js
+k6 run tests/performance/sittax-load-test.js
 
-## 🚀 Uso
-
-### Execução Individual
-
-```bash
-# Teste básico
-k6 run tests/sittax-smoke-test.js
-
-# Teste de carga
-k6 run tests/sittax-load-test.js
-
-# Spike devastador (⚠️ CUIDADO)
-k6 run tests/sittax-spike-test-extreme.js
-```
-
-### Execução Completa
-
-```bash
-# Windows
+# Suíte completa
 scripts\run-sittax-tests.bat
 
-# Ou individual com parâmetros
-k6 run tests/sittax-spike-test.js --vus 500 --duration 2m
+# Com parâmetros customizados
+k6 run tests/performance/sittax-spike-test.js --vus 500 --duration 2m
 ```
 
-### VS Code Tasks
+---
 
-Se usar VS Code, execute via `Ctrl+Shift+P` → `Tasks: Run Task`:
+## 🚀 Agilizza — Testes de Carga
+
+Testes para o sistema **Agilizza** (`agilizza.sittax.com.br`), uma aplicação **Laravel (PHP 8.2)** que usa autenticação via **sessão/cookie** com proteção **CSRF**.
+
+### Fluxo de Autenticação
+
+Diferente do Sittax (JWT), o Agilizza requer um fluxo em **2 etapas**:
+
+```
+1. GET  /login  →  Obter token CSRF do HTML (<input name="_token">)
+2. POST /login  →  Submeter form com { _token, email, password }
+   ↳ Servidor retorna sessão via cookies (agilizza_session + XSRF-TOKEN)
+3. GET  /dashboard/data/all  →  Acessar dados autenticados via cookie
+```
+
+### Testes Disponíveis
+
+| Teste | Arquivo | VUs | Duração | O que faz |
+|-------|---------|-----|---------|-----------|
+| 🟢 **Smoke** | `agilizza-login-simple.js` | 5 | 1 min | Login + validação de redirecionamento |
+| 🟡 **Load** | `agilizza-load-test.js` | 100 | 10 min | Login + dashboard + notificações (ramp up) |
+| 🔴 **Stress** | `agilizza-stress-test.js` | 300 | 15 min | Spike progressivo + navegação completa |
+| 💥 **Spike** | `agilizza-spike-test.js` | 100 | Variável | 100 VUs **simultâneos** × 1.000 iterações |
+| 🎯 **Breakpoint** | `agilizza-breakpoint-test.js` | 500 | 9 min | Subida progressiva até encontrar o limite |
+
+### Endpoints Testados
+
+| Endpoint | Método | Tipo | Descrição |
+|----------|--------|------|-----------|
+| `/login` | `GET` | HTML | Página de login (obter CSRF token) |
+| `/login` | `POST` | Form | Submissão do formulário de login |
+| `/dashboard/data/all` | `GET` | JSON | Dados completos do dashboard |
+| `/notifications/unread/get` | `GET` | JSON | Notificações não lidas |
+| `/home` | `GET` | HTML | Página principal pós-login |
+| `/empresas` | `GET` | HTML | Listagem de empresas |
+
+### Uso Rápido — Agilizza
+
+```bash
+# Menu interativo
+scripts\run-agilizza-tests.bat
+
+# Direto
+k6 run tests/auth/agilizza-login-simple.js         # Smoke
+k6 run tests/auth/agilizza-load-test.js             # Carga massiva
+k6 run tests/auth/agilizza-stress-test.js           # Stress
+k6 run tests/auth/agilizza-breakpoint-test.js       # Breakpoint
+```
+
+### 📊 Resultado do Breakpoint Test — 20/02/2026
+
+Teste com subida progressiva de **50 → 100 → 200 → 300 → 500 VUs**:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    BREAKPOINT TEST RESULT                    │
+├─────────────────────────┬───────────────────────────────────┤
+│ Total de requests       │ 101.186                           │
+│ Total de iterações      │ 17.706                            │
+│ VUs máximos             │ 500                               │
+│ Requests/segundo        │ 186.3 req/s                       │
+│ Dados transferidos      │ 2.5 GB recebidos                  │
+├─────────────────────────┼───────────────────────────────────┤
+│ Taxa sucesso login      │ 92.57% (16.391 / 17.706)         │
+│ Taxa erro HTTP          │ 1.67%  (1.698 / 101.186)         │
+│ Tempo médio resposta    │ 1.25s                             │
+│ p50 (mediana)           │ 319ms                             │
+│ p90                     │ 1.33s                             │
+│ p95                     │ 2.12s                             │
+├─────────────────────────┴───────────────────────────────────┤
+│ ✅ Servidor NÃO caiu com 500 VUs simultâneos                │
+│ ⚠️  Degradação começa a partir de ~300 VUs (timeouts)       │
+│ ✅ Infraestrutura bem dimensionada                          │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 🎮 Scripts de Execução
+
+| Script | Plataforma | Descrição |
+|--------|-----------|-----------|
+| `run-agilizza-tests.bat` | Agilizza | Menu interativo (Smoke / Load / Stress / Todos) |
+| `run-auth-tests.bat` | Sittax | Login simples + completo |
+| `run-sittax-tests.bat` | Sittax | Suíte completa de testes |
+| `run-performance-tests.bat` | Sittax | Todos os testes de performance |
+| `run-upload-tests.bat` | Sittax | Testes de upload de notas |
+| `run-stress-extremo.bat` | Sittax | Stress extremo (com confirmação ⚠️) |
+| `run-smoke-test.bat` | Sittax | Smoke test rápido |
+| `run-load-test.bat` | Sittax | Teste de carga |
+| `run-stress-test.bat` | Sittax | Teste de stress |
+
+---
+
+## ⚙️ Configuração
+
+### Dados de Usuários
+
+**Sittax** — `data/login_usuarios.csv` (32 usuários):
+```csv
+usuario,senha
+genilson@counts.com.br,sittax123
+mariana@arthacontabilidade.com.br,sittax123
+...
+```
+
+**Agilizza** — `data/agilizza_usuarios.csv` (101 usuários):
+```csv
+email,senha
+agilizza_master@agilizza.com,SuaSenha
+test.agilizza.01@sittax.com.br,Sittax123.
+test.agilizza.02@sittax.com.br,Sittax123.
+...até test.agilizza.100@sittax.com.br
+```
+
+### Thresholds Padrão
+
+```javascript
+// Sittax (testes agressivos)
+thresholds: {
+  http_req_duration: ['p(95)<30000'],   // 95% das requests < 30s
+  http_req_failed:   ['rate<0.85'],     // < 85% falhas
+}
+
+// Agilizza (testes de carga)
+thresholds: {
+  http_req_duration: ['p(95)<8000'],    // 95% das requests < 8s
+  http_req_failed:   ['rate<0.3'],      // < 30% falhas
+  login_success_rate: ['rate>0.6'],     // > 60% logins com sucesso
+}
+```
+
+### Integração VS Code
+
+Execute via `Ctrl+Shift+P` → **Tasks: Run Task**:
 - `k6: Sittax Smoke Test`
 - `k6: Sittax Load Test`
 - `k6: Sittax Stress Test`
 - `k6: Sittax Spike Test`
 - `k6: Run All Sittax Tests`
 
-## � Tipos de Teste
+---
 
-| Teste | VUs Máximos | Duração | Objetivo |
-|-------|-------------|---------|----------|
-| **Smoke** | 1 | 1min | Verificação básica |
-| **Load** | 200 | 16min | Carga normal |
-| **Stress** | 9000 | 25min | Estresse extremo |
-| **Spike** | 800 | 7min | Picos súbitos |
-| **Spike Extreme** | 10000 | 8min | Devastação total |
-| **Soak** | 15 | 40min | Durabilidade |
-| **Breakpoint** | 2500 | 20min | Limite absoluto |
+## 📈 Relatórios
 
-## ⚙️ Configuração
+Todos os relatórios JSON são gerados na pasta `reports/`:
 
-### Dados de Usuário
+| Plataforma | Relatórios |
+|-----------|------------|
+| **Sittax** | `sittax-smoke-result.json`, `sittax-load-result.json`, `sittax-stress-result.json`, `sittax-spike-result.json`, `sittax-spike-extreme-result.json`, `sittax-soak-result.json`, `sittax-breakpoint-result.json` |
+| **Agilizza** | `agilizza-smoke-result.json`, `agilizza-load-result.json`, `agilizza-stress-result.json`, `agilizza-spike-result.json`, `agilizza-breakpoint-result.json` |
 
-**Sittax** — `data/login_usuarios.csv`:
-```csv
-usuario,senha
-user1@sittax.com.br,senha123
-...
-```
+### Métricas Importantes
 
-**Agilizza** — `data/agilizza_usuarios.csv`:
-```csv
-email,senha
-agilizza_master@agilizza.com,SuaSenha
-test.agilizza.01@sittax.com.br,Sittax123.
-...
-```
+| Métrica | Descrição |
+|---------|-----------|
+| `http_req_duration` | Tempo de resposta (p50, p90, p95) |
+| `http_req_failed` | Taxa de falhas HTTP |
+| `login_success_rate` | Taxa de logins com sucesso |
+| `login_duration` | Tempo específico do POST de login |
+| `dashboard_duration` | Tempo de carregamento do dashboard |
+| `iterations` | Total de iterações completadas |
+| `vus` | Usuários virtuais ativos |
 
-### Endpoint de Teste
-
-```javascript
-const API_URL = 'https://autenticacaohomologacao.sittax.com.br/api/auth/login';
-```
-
-### Thresholds Configurados
-
-```javascript
-thresholds: {
-  http_req_duration: ['p(95)<30000'],    // 95% < 30s
-  http_req_failed: ['rate<0.85'],        // < 85% falhas
-  checks: ['rate>0.15'],                 // > 15% sucessos
-}
-```
-
-## 📈 Resultados
-
-Os relatórios são salvos em `reports/`:
-
-**Sittax:**
-- `sittax-smoke-result.json`
-- `sittax-load-result.json`
-- `sittax-stress-result.json`
-- `sittax-spike-result.json`
-- `sittax-spike-extreme-result.json`
-- `sittax-soak-result.json`
-- `sittax-breakpoint-result.json`
-
-**Agilizza:**
-- `agilizza-smoke-result.json`
-- `agilizza-load-result.json`
-- `agilizza-stress-result.json`
-- `agilizza-spike-result.json`
-- `agilizza-breakpoint-result.json`
-
-### Exemplo de Resultado
-
-```
-🔥💀⚡ SPIKE TEST EXTREME - DEVASTAÇÃO TOTAL ⚡💀🔥
-
-📊 ESTATÍSTICAS:
-- Total requests: 45,230
-- RPS: 1,205.2
-- Taxa de falha: 23.4%
-- P95: 8,950ms
-
-💀 RESULTADO: SISTEMA DEVASTADO! ✅
-```
+---
 
 ## ⚠️ Avisos Importantes
 
-- **SPIKE EXTREME** pode quebrar o sistema alvo
-- **Monitorar recursos** durante testes pesados
-- **Usar em ambiente de homologação** apenas
-- **10.000 VUs** = potencialmente 200.000+ requests simultâneos
+> **CUIDADO**: Testes acima de 300 VUs podem causar degradação no servidor-alvo. Sempre use em ambiente de **homologação**.
+
+- Testes **Spike Extreme** (10k VUs) podem derrubar serviços em produção
+- **Monitorar recursos** do servidor durante testes pesados
+- O Cloudflare pode aplicar **rate limiting** em testes muito agressivos
+- Recomendado: coordenar com a equipe de infra antes de testes de breakpoint
+
+---
 
 ## 🤝 Contribuição
 
 1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/NovaFeature`)
-3. Commit suas mudanças (`git commit -m 'Add: Nova feature incrível'`)
-4. Push para a branch (`git push origin feature/NovaFeature`)
+2. Crie sua branch: `git checkout -b feature/NovaFeature`
+3. Commit: `git commit -m 'Add: Nova feature'`
+4. Push: `git push origin feature/NovaFeature`
 5. Abra um Pull Request
 
-## � Licença
+---
+
+## 📝 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
-## 👨‍💻 Autor
-
-**Projeto Sittax K6 Performance Suite**  
-Criado para testes de performance extremos das APIs Sittax.
-
-### 🏆 **RECORDE MUNDIAL ALCANÇADO:**
-```
-🚀⚡ ULTRA FAST TEST - RECORDE ESTABELECIDO! ⚡🚀
-
-📊 PERFORMANCE HISTÓRICA:
-- ✅ 5000 uploads completos em 52.9 segundos
-- ✅ Velocidade recorde: 94.6 uploads/segundo  
-- ✅ Taxa de sucesso: 100% - ZERO falhas
-- ✅ 10 VUs simultâneos com arquivos XML reais
-- ✅ FormData otimizado + Cache agressivo de tokens
-
-🥇 NOVO PADRÃO DE PERFORMANCE PARA APIS SITTAX!
-```
-
-### 📞 Contato
-- 🐙 **GitHub**: [lucgonp/sittax-k6-test](https://github.com/lucgonp/sittax-k6-test)
-- 📧 **Issues**: Para bugs e sugestões, use o GitHub Issues
-
----
-
-**⚡ Lembre-se: Com grandes poderes vêm grandes responsabilidades. Use estes testes com sabedoria! ⚡**
-
 ---
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Made%20with-❤️-red?style=for-the-badge" alt="Made with Love">
-  <img src="https://img.shields.io/badge/k6-Performance%20Testing-7d64ff?style=for-the-badge" alt="k6 Performance Testing">
-  <img src="https://img.shields.io/badge/Sittax-API%20Testing-green?style=for-the-badge" alt="Sittax API Testing">
-  <img src="https://img.shields.io/badge/Record-94.6%2Fs-orange?style=for-the-badge" alt="Performance Record">
+  <img src="https://img.shields.io/badge/Made%20with-❤️-E53935?style=for-the-badge" alt="Made with Love">
+  <img src="https://img.shields.io/badge/k6-Performance_Testing-7d64ff?style=for-the-badge&logo=k6" alt="k6">
+  <img src="https://img.shields.io/badge/Sittax-API_Testing-4CAF50?style=for-the-badge" alt="Sittax">
+  <img src="https://img.shields.io/badge/Agilizza-Load_Testing-FF6600?style=for-the-badge" alt="Agilizza">
 </p>
 
 <p align="center">
-  <strong>🚀 O Projeto de Performance Testing mais completo e rápido para Sittax APIs 🚀</strong>
+  <strong>⚡ Suíte de Performance Testing mais completa para Sittax & Agilizza ⚡</strong><br>
+  <a href="https://github.com/lucgonp/sittax-k6-test">github.com/lucgonp/sittax-k6-test</a>
 </p>
