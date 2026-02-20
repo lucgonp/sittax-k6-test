@@ -21,6 +21,11 @@ node_modules/
 .env
 .env.local
 
+# Dados sensíveis - credenciais de usuários (usar .csv.example como template)
+data/login_usuarios.csv
+data/agilizza_usuarios.csv
+data/credentials.csv
+
 # Arquivos de backup
 *.bak
 *.tmp
